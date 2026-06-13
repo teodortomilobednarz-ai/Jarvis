@@ -1,9 +1,15 @@
 # kcal-scan — Instructions projet (app iOS)
 
 App iOS native de comptage de calories par IA. Destination : **App Store**.
-Voir `cahier-des-charges.md` pour les specs complètes.
+Voir `docs/cahier-des-charges.md` pour les specs complètes et `docs/BUILD-SETUP.md` pour la config Xcode.
 
 > Ce dossier vit temporairement dans Jarvis. À déplacer vers le dépôt dédié `kcal-scan` (développement Xcode sur Mac — non compilable sous Linux).
+
+## Organisation du dossier
+- `app/` — **code de l'application** (`KcalScan/`, `KcalScanTests/`).
+- `docs/` — documentation Markdown (cahier des charges, build).
+- `mockup/` — maquette visuelle HTML (`preview.html`).
+- `CLAUDE.md` — ce fichier (instructions projet).
 
 ## Stack (choix V1 validés)
 - Swift 5.9+, **SwiftUI**, iOS 17+, ViewModels `@Observable`.
@@ -14,9 +20,9 @@ Voir `cahier-des-charges.md` pour les specs complètes.
 - Monétisation : **100 % gratuit, financé par la pub** (AdMob via `AdsService`). Aucun abonnement, IAP ni paywall — ne jamais créer de `Subscription*`.
 
 ## Architecture (MVVM + Services + Repositories)
-`View → ViewModel → Repository → Service(s)`. Voir `BUILD-SETUP.md` pour la config Xcode.
+`View → ViewModel → Repository → Service(s)`. Voir `docs/BUILD-SETUP.md` pour la config Xcode.
 ```
-KcalScan/
+app/KcalScan/
   App/         KcalScanApp, AppEnvironment (DI), RootView (TabView + bouton +)
   Models/      UserProfile, NutritionGoal, MacroNutrients, FoodItem, FoodEntry,
                MealType, DailyNutritionSummary, ActivityLevel, NutritionObjective, Ads/*
@@ -28,7 +34,7 @@ KcalScan/
   UI/Components/ AdBannerView, MacroRingView, CalorieRemainingView
   Support/     Config (TODO clés/endpoints), LocalStore
   Resources/   Info-additions.plist, KcalScan.entitlements
-KcalScanTests/ NutritionCalculatorTests
+app/KcalScanTests/ NutritionCalculatorTests
 ```
 
 ## Règles publicité (AdsService)

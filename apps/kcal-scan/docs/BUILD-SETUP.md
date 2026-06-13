@@ -1,12 +1,12 @@
 # kcal-scan — Configuration Xcode & build
 
-Le code de `KcalScan/` est un **squelette SwiftUI** prêt à intégrer dans un projet Xcode.
+Le code de `app/KcalScan/` est un **squelette SwiftUI** prêt à intégrer dans un projet Xcode.
 Il ne peut pas être compilé hors de Xcode (frameworks Apple : HealthKit, CloudKit, VisionKit…).
 
 ## 1. Créer le projet
 1. Xcode → New Project → **App** (iOS), SwiftUI, langage Swift.
 2. Nom de produit : `KcalScan`. Cible minimale : **iOS 17**.
-3. Supprimer le `ContentView.swift`/`App` générés, puis glisser le dossier `KcalScan/` (et `KcalScanTests/`) dans le projet.
+3. Supprimer le `ContentView.swift`/`App` générés, puis glisser les dossiers `app/KcalScan/` (et `app/KcalScanTests/`) dans le projet.
 
 ## 2. Capabilities à activer (target → Signing & Capabilities)
 - **HealthKit**
@@ -18,7 +18,7 @@ Il ne peut pas être compilé hors de Xcode (frameworks Apple : HealthKit, Cloud
 Mettre à jour `Config.cloudKitContainerIdentifier` et l'entitlement avec l'identifiant réel.
 
 ## 3. Info.plist
-Fusionner les clés de `KcalScan/Resources/Info-additions.plist` (usage Santé, caméra, photo, ATT, `GADApplicationIdentifier`).
+Fusionner les clés de `app/KcalScan/Resources/Info-additions.plist` (usage Santé, caméra, photo, ATT, `GADApplicationIdentifier`).
 
 ## 4. Packages (SPM)
 - **Google Mobile Ads SDK** : `https://github.com/googleads/swift-package-manager-google-mobile-ads`
@@ -40,7 +40,7 @@ Fusionner les clés de `KcalScan/Resources/Info-additions.plist` (usage Santé, 
 - Sign in with Apple : flux `ASAuthorizationController` à brancher à l'onboarding si vous voulez un credential explicite (l'identité de sync repose déjà sur le compte iCloud).
 
 ## 7. Tests
-`KcalScanTests/NutritionCalculatorTests.swift` couvre BMR/TDEE/cible/macros (logique pure, exécutable sans appareil).
+`app/KcalScanTests/NutritionCalculatorTests.swift` couvre BMR/TDEE/cible/macros (logique pure, exécutable sans appareil).
 
 ## 8. Checklist App Store
 - Politique de confidentialité + Conditions (URLs à ajouter dans Settings et App Store Connect).

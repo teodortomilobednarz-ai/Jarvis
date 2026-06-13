@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>kcal-scan — Maquette</title>
+<style>
+  :root{
+    --bg:#f2f2f7; --card:#fff; --sec:#8e8e93; --line:#e5e5ea;
+    --accent:#34c759; --blue:#0a84ff; --orange:#ff9500; --pink:#ff2d55; --red:#ff3b30;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       background:#1c1c1e;color:#000;padding:28px 16px;}
+  h1.title{color:#fff;text-align:center;font-size:22px;margin-bottom:4px}
+  p.sub{color:#aeaeb2;text-align:center;font-size:13px;margin-bottom:28px}
+  .grid{display:flex;flex-wrap:wrap;gap:26px;justify-content:center}
+  .phone{width:300px;height:620px;background:var(--bg);border-radius:42px;
+    border:11px solid #000;position:relative;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.45)}
+  .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:140px;height:26px;
+    background:#000;border-radius:0 0 18px 18px;z-index:20}
+  .status{display:flex;justify-content:space-between;padding:9px 22px 2px;font-size:12px;font-weight:600}
+  .screen{height:100%;display:flex;flex-direction:column}
+  .nav{font-size:26px;font-weight:800;padding:6px 18px 10px}
+  .nav.sm{font-size:17px;font-weight:700;text-align:center;padding:10px}
+  .body{flex:1;overflow:hidden;padding:0 16px}
+  .label{font-size:11px;color:var(--sec);text-transform:none}
+  .card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .center{text-align:center}
+  .kcal-big{font-size:46px;font-weight:800;letter-spacing:-1px;line-height:1}
+  .row{display:flex;justify-content:space-around;margin-top:12px}
+  .stat .v{font-size:16px;font-weight:700}
+  .stat .l{font-size:10px;color:var(--sec)}
+  .rings{display:flex;justify-content:space-around}
+  .ring{width:64px;text-align:center}
+  .ring .circle{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:700;margin:0 auto 4px}
+  .ring .l{font-size:10px;color:var(--sec)}
+  .meal{font-size:12px;color:var(--sec);font-weight:600;text-transform:uppercase;margin:14px 4px 6px}
+  .entry{background:#fff;border-radius:12px;padding:11px 14px;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center}
+  .entry .n{font-size:14px;font-weight:600}
+  .entry .g{font-size:11px;color:var(--sec)}
+  .entry .k{font-size:13px;font-weight:700}
+  .tabbar{height:64px;background:rgba(255,255,255,.92);border-top:1px solid var(--line);
+    display:flex;justify-content:space-around;align-items:center;position:relative}
+  .tab{font-size:10px;color:var(--sec);text-align:center;flex:1}
+  .tab.active{color:var(--accent)}
+  .tab .ic{font-size:19px;display:block;margin-bottom:2px}
+  .fab{position:absolute;top:-22px;left:50%;transform:translateX(-50%);width:54px;height:54px;border-radius:50%;
+    background:var(--accent);color:#fff;font-size:28px;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 14px rgba(52,199,89,.45)}
+  .ad{background:#e9e9ee;border:1px dashed #c7c7cc;border-radius:8px;color:#8e8e93;font-size:11px;
+    text-align:center;padding:9px;margin:8px 0}
+  .viewfinder{flex:1;background:linear-gradient(135deg,#2c2c2e,#1c1c1e);border-radius:16px;margin:10px 0;
+    display:flex;align-items:center;justify-content:center;position:relative}
+  .scanbox{width:180px;height:110px;border:3px solid var(--accent);border-radius:12px}
+  .scanline{position:absolute;width:170px;height:2px;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+  .hint{color:#fff;position:absolute;bottom:18px;font-size:12px}
+  .formrow{display:flex;justify-content:space-between;padding:12px 4px;border-bottom:1px solid var(--line);font-size:14px}
+  .btn{background:var(--accent);color:#fff;text-align:center;padding:13px;border-radius:12px;font-weight:700;font-size:15px;margin-top:14px}
+  .chk{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
+  .chk .dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:12px}
+  .chk .dot.on{background:var(--accent);color:#fff}
+  .disc{font-size:10px;color:var(--sec);margin-top:8px;line-height:1.4}
+  .bars{display:flex;align-items:flex-end;gap:9px;height:200px;padding:14px 6px;background:#fff;border-radius:16px}
+  .bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+  .bar .b{width:100%;background:var(--accent);border-radius:5px 5px 0 0}
+  .bar .d{font-size:9px;color:var(--sec);margin-top:5px}
+  .goalline{border-top:2px dashed #c7c7cc;position:relative;font-size:9px;color:var(--sec)}
+  .set-row{display:flex;justify-content:space-between;padding:12px 2px;border-bottom:1px solid var(--line);font-size:14px}
+  .set-row .v{color:var(--sec)}
+  .badge{display:inline-block;background:#e9f9ee;color:var(--accent);font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px}
+  .screen-name{color:#fff;text-align:center;font-size:12px;margin-top:10px;opacity:.7}
+</style>
+</head>
+<body>
+<h1 class="title">kcal-scan</h1>
+<p class="sub">Maquette des écrans — rendu indicatif (l'app réelle est en SwiftUI)</p>
+<div class="grid">
+
+  <!-- DASHBOARD -->
+  <div>
+  <div class="phone"><div class="notch"></div>
+    <div class="screen">
+      <div class="status"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav">Accueil</div>
+      <div class="body">
+        <div class="card center">
+          <div class="label">Restant aujourd'hui</div>
+          <div class="kcal-big">910</div>
+          <div class="label">kcal</div>
+          <div class="row">
+            <div class="stat"><div class="v">2760</div><div class="l">Objectif</div></div>
+            <div class="stat"><div class="v">1850</div><div class="l">Consommé</div></div>
+            <div class="stat"><div class="v">7 400</div><div class="l">Pas</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="rings">
+            <div class="ring"><div class="circle" style="background:conic-gradient(var(--blue) 66%,#dbeafe 0)"><span style="background:#fff;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center">95</span></div><div class="l">Protéines</div><div class="l">/144 g</div></div>
+            <div class="ring"><div class="circle" style="background:conic-gradient(var(--orange) 65%,#ffe8cc 0)"><span style="background:#fff;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center">240</span></div><div class="l">Glucides</div><div class="l">/366 g</div></div>
+            <div class="ring"><div class="circle" style="background:conic-gradient(var(--pink) 75%,#ffd6e0 0)"><span style="background:#fff;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center">60</span></div><div class="l">Lipides</div><div class="l">/80 g</div></div>
+          </div>
+        </div>
+        <div class="ad">Publicité — bannière discrète</div>
+      </div>
+      <div class="tabbar">
+        <div class="tab active"><span class="ic">⌂</span>Accueil</div>
+        <div class="tab"><span class="ic">▤</span>Journal</div>
+        <div class="fab">+</div>
+        <div class="tab"><span class="ic">📈</span>Progrès</div>
+        <div class="tab"><span class="ic">⚙</span>Réglages</div>
+      </div>
+    </div>
+  </div>
+  <div class="screen-name">Accueil (Dashboard)</div>
+  </div>
+
+  <!-- JOURNAL -->
+  <div>
+  <div class="phone"><div class="notch"></div>
+    <div class="screen">
+      <div class="status"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav">Journal</div>
+      <div class="body" style="overflow:auto">
+        <div class="meal">Petit-déjeuner</div>
+        <div class="entry"><div><div class="n">Flocons d'avoine</div><div class="g">60 g</div></div><div class="k">228 kcal</div></div>
+        <div class="entry"><div><div class="n">Banane</div><div class="g">120 g</div></div><div class="k">107 kcal</div></div>
+        <div class="meal">Déjeuner</div>
+        <div class="entry"><div><div class="n">Poulet grillé</div><div class="g">150 g</div></div><div class="k">203 kcal</div></div>
+        <div class="entry"><div><div class="n">Riz blanc cuit</div><div class="g">200 g</div></div><div class="k">260 kcal</div></div>
+        <div class="entry"><div><div class="n">Brocoli</div><div class="g">80 g</div></div><div class="k">27 kcal</div></div>
+        <div class="meal">Collation</div>
+        <div class="entry"><div><div class="n">Yaourt grec</div><div class="g">150 g</div></div><div class="k">89 kcal</div></div>
+        <div class="ad">Publicité</div>
+      </div>
+      <div class="tabbar">
+        <div class="tab"><span class="ic">⌂</span>Accueil</div>
+        <div class="tab active"><span class="ic">▤</span>Journal</div>
+        <div class="fab">+</div>
+        <div class="tab"><span class="ic">📈</span>Progrès</div>
+        <div class="tab"><span class="ic">⚙</span>Réglages</div>
+      </div>
+    </div>
+  </div>
+  <div class="screen-name">Journal</div>
+  </div>
+
+  <!-- SCANNER -->
+  <div>
+  <div class="phone"><div class="notch"></div>
+    <div class="screen">
+      <div class="status"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav sm">Scanner</div>
+      <div class="body" style="display:flex;flex-direction:column">
+        <div class="viewfinder">
+          <div class="scanbox"></div>
+          <div class="scanline"></div>
+          <div class="hint">Visez le code-barres</div>
+        </div>
+        <div class="card" style="margin-bottom:6px">
+          <div class="n" style="font-weight:700;font-size:15px">Serviette… (produit trouvé)</div>
+          <div class="formrow"><span>Portion</span><b>150 g</b></div>
+          <div class="formrow"><span>Repas</span><b>Déjeuner</b></div>
+          <div class="formrow" style="border:0"><span>Énergie</span><b>203 kcal</b></div>
+          <div class="btn">Ajouter au journal</div>
+        </div>
+        <div class="disc">Aucune publicité pendant le scan.</div>
+      </div>
+    </div>
+  </div>
+  <div class="screen-name">Scanner code-barres</div>
+  </div>
+
+  <!-- PHOTO -->
+  <div>
+  <div class="phone"><div class="notch"></div>
+    <div class="screen">
+      <div class="status"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav sm">Photo</div>
+      <div class="body">
+        <div class="card" style="background:#2c2c2e;color:#fff;text-align:center;padding:34px 16px">
+          📷<br><span style="font-size:13px">Photo de l'assiette analysée</span>
+        </div>
+        <div class="card">
+          <div class="label" style="margin-bottom:6px">Aliments détectés (IA)</div>
+          <div class="chk"><div class="dot on">✓</div><div style="flex:1"><div class="n">Poulet grillé</div><div class="g">150 g · conf. 82 %</div></div><b>203</b></div>
+          <div class="chk"><div class="dot on">✓</div><div style="flex:1"><div class="n">Riz blanc cuit</div><div class="g">200 g · conf. 74 %</div></div><b>260</b></div>
+          <div class="chk"><div class="dot">○</div><div style="flex:1"><div class="n">Brocoli</div><div class="g">80 g · conf. 69 %</div></div><b>27</b></div>
+          <div class="btn">Ajouter au journal</div>
+          <div class="disc">Les estimations IA sont indicatives et peuvent être inexactes. Ajustez si nécessaire.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="screen-name">Analyse photo IA</div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div>
+  <div class="phone"><div class="notch"></div>
+    <div class="screen">
+      <div class="status"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav">Progrès</div>
+      <div class="body">
+        <div class="label" style="margin:6px 4px">Calories — 7 derniers jours</div>
+        <div class="bars">
+          <div class="bar"><div class="b" style="height:70%"></div><div class="d">L</div></div>
+          <div class="bar"><div class="b" style="height:88%"></div><div class="d">M</div></div>
+          <div class="bar"><div class="b" style="height:62%"></div><div class="d">M</div></div>
+          <div class="bar"><div class="b" style="height:95%"></div><div class="d">J</div></div>
+          <div class="bar"><div class="b" style="height:80%"></div><div class="d">V</div></div>
+          <div class="bar"><div class="b" style="height:100%"></div><div class="d">S</div></div>
+          <div class="bar"><div class="b" style="height:67%;background:#a7e8bd"></div><div class="d">D</div></div>
+        </div>
+        <div class="disc">Ligne pointillée = objectif (2760 kcal). TODO : courbe de poids (HealthKit).</div>
+        <div class="ad">Publicité</div>
+      </div>
+      <div class="tabbar">
+        <div class="tab"><span class="ic">⌂</span>Accueil</div>
+        <div class="tab"><span class="ic">▤</span>Journal</div>
+        <div class="fab">+</div>
+        <div class="tab active"><span class="ic">📈</span>Progrès</div>
+        <div class="tab"><span class="ic">⚙</span>Réglages</div>
+      </div>
+    </div>
+  </div>
+  <div class="screen-name">Progrès</div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div>
+  <div class="phone"><div class="notch"></div>
+    <div class="screen">
+      <div class="status"><span>9:41</span><span>📶 🔋</span></div>
+      <div class="nav">Réglages</div>
+      <div class="body" style="overflow:auto">
+        <div class="label" style="margin:6px 4px">PROFIL</div>
+        <div class="card" style="padding:4px 14px">
+          <div class="set-row"><span>Sexe</span><span class="v">Homme</span></div>
+          <div class="set-row"><span>Âge</span><span class="v">30 ans</span></div>
+          <div class="set-row"><span>Taille</span><span class="v">180 cm</span></div>
+          <div class="set-row"><span>Poids</span><span class="v">80 kg</span></div>
+          <div class="set-row" style="border:0"><span>Objectif</span><span class="v">Maintien</span></div>
+        </div>
+        <div class="label" style="margin:6px 4px">OBJECTIF CALCULÉ</div>
+        <div class="card" style="padding:4px 14px">
+          <div class="set-row"><span>BMR</span><span class="v">1780 kcal</span></div>
+          <div class="set-row"><span>TDEE</span><span class="v">2759 kcal</span></div>
+          <div class="set-row" style="border:0"><span>Cible</span><span class="v">2760 kcal</span></div>
+        </div>
+        <div class="card">
+          <span class="badge">Gratuit · financé par la pub</span>
+          <div class="disc">Outil de suivi nutritionnel à visée informative, non médical. Aucun abonnement, aucun achat intégré.</div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="tab"><span class="ic">⌂</span>Accueil</div>
+        <div class="tab"><span class="ic">▤</span>Journal</div>
+        <div class="fab">+</div>
+        <div class="tab"><span class="ic">📈</span>Progrès</div>
+        <div class="tab active"><span class="ic">⚙</span>Réglages</div>
+      </div>
+    </div>
+  </div>
+  <div class="screen-name">Réglages</div>
+  </div>
+
+</div>
+</body>
+</html>
