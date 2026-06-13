@@ -22,3 +22,10 @@
 
 ## Langue
 - Répondre **en français**.
+
+## Concision (token-efficient)
+- Réfléchir en profondeur, répondre de façon concise.
+- Pas d'introductions flatteuses ni de conclusions superflues.
+- Pas d'emojis ni de tirets longs — SAUF dans les e-mails/contenus marketing.
+- Lire les fichiers avant d'écrire ; ne pas relire sauf s'ils ont changé.
+- Ne jamais deviner API, versions, flags, SHA, noms de packages : vérifier avant d'affirmer.
