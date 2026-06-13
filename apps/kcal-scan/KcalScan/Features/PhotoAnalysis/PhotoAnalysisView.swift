@@ -1,5 +1,6 @@
 import SwiftUI
 import PhotosUI
+import UIKit
 
 struct PhotoAnalysisView: View {
     @Environment(AppEnvironment.self) private var env

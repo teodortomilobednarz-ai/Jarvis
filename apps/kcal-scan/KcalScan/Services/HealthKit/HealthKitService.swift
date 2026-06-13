@@ -84,15 +84,15 @@ final class HealthKitService: HealthKitServiceProtocol {
     }
 
     func snapshot() async -> HealthSnapshot {
-        async let steps = try? todaySteps()
-        async let energy = try? todayActiveEnergy()
-        async let mass = try? latestBodyMassKg()
-        async let height = try? latestHeightCm()
-        return await HealthSnapshot(
-            steps: (steps ?? 0),
-            activeEnergyKcal: (energy ?? 0),
-            bodyMassKg: (mass ?? nil),
-            heightCm: (height ?? nil),
+        let steps = (try? await todaySteps()) ?? 0
+        let energy = (try? await todayActiveEnergy()) ?? 0
+        let mass = (try? await latestBodyMassKg()) ?? nil
+        let height = (try? await latestHeightCm()) ?? nil
+        return HealthSnapshot(
+            steps: steps,
+            activeEnergyKcal: energy,
+            bodyMassKg: mass,
+            heightCm: height,
             sex: biologicalSex(),
             birthDate: birthDate()
         )

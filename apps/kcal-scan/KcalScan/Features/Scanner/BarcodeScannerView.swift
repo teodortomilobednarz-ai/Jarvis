@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 #if canImport(VisionKit)
 import VisionKit
 #endif
