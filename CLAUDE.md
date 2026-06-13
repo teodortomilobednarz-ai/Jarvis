@@ -2,8 +2,13 @@
 
 ## Profil
 - **Nom** : Teodor
+- **Marque** : TOMi Auto Care (accessoires de detailing).
+- **Email** : Tomiloteodor2@outlook.fr
+- **Téléphone** : 06 67 10 09 06
 - **Projet** : Devenir importateur depuis la Chine d'accessoires de **detailing** (auto).
-- **Objectif** : Créer une entreprise **B2B scalable**, fonctionnant par **contrats**.
+- **Objectif** : Créer une entreprise **B2B scalable**, fonctionnant par **contrats** ; viser le **référencement en enseignes/distribution** (Autobacs, Norauto, Feu Vert…), pas l'e-commerce.
+- **Produits actuels** : serviette microfibre séchage premium (60×90, 1200GSM, double-face) + gant de lavage chenille.
+- **Produits T4 2026** : pinceaux jantes, microfibre intérieur, microfibre finition vitres, gant d'argile de décontamination.
 
 ## Mon rôle (Jarvis)
 - Envoyer des e-mails (fournisseurs + prospects clients).
