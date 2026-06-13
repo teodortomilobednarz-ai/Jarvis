@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Clés à fusionner dans l'Info.plist de la cible Xcode.
+  (Sur un projet récent, ces clés se mettent dans l'onglet Info de la target.)
+-->
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>NSHealthShareUsageDescription</key>
+    <string>kcal-scan lit vos pas, votre dépense active, votre poids et taille pour calculer votre besoin calorique quotidien.</string>
+
+    <key>NSHealthUpdateUsageDescription</key>
+    <string>kcal-scan peut enregistrer vos données nutritionnelles dans Apple Santé.</string>
+
+    <key>NSCameraUsageDescription</key>
+    <string>L'appareil photo sert à scanner les codes-barres et photographier vos assiettes.</string>
+
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Sélectionnez une photo d'assiette à analyser.</string>
+
+    <key>NSUserTrackingUsageDescription</key>
+    <string>Votre autorisation permet d'afficher des publicités plus pertinentes. L'app reste gratuite.</string>
+
+    <!-- TODO: identifiant d'application AdMob (jamais une clé secrète). -->
+    <key>GADApplicationIdentifier</key>
+    <string>ca-app-pub-XXXXXXXXXXXXXXXX~YYYYYYYYYY</string>
+</dict>
+</plist>
